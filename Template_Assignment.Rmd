@@ -11,11 +11,12 @@ output: pdf_document
 install.packages("tidyverse")
 install.packages("yaml")
 install.packages("rmarkdown")
+```
 
+```{r packages}
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
-library(readr)
 ```
 
 # Title Page
@@ -45,19 +46,10 @@ Include the following:
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
 ```{r loading_data}
-#dataset <- midwest
-
-tertiary_edu_govt_exp <- read_csv("data/tertiary edu govt exp.csv")
+dataset <- midwest
 ```
 
 midwest is an example dataset included in the tidyverse package
-
-```{r}
-
-
-tertiary_edu_govt_exp <- read_csv("data/tertiary edu govt exp.csv")
-```
-
 
 ## 2.2 Provide a short summary of the dataset(s)
 
@@ -168,5 +160,3 @@ Provide the link to your PUBLIC repository here: ...
 ## 5.2 Reference list
 
 Use APA referencing throughout your document.
-
-git push
