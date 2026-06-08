@@ -206,7 +206,7 @@ Use APA referencing throughout your document.
 #inladen tidyverse
 library(tidyverse)
 
-#income_ineq aan het selecteren en sorteren
+#income_ineq aan het selecteren
 income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
   select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
   rename(
