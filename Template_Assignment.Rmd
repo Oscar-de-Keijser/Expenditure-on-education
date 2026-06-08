@@ -160,3 +160,23 @@ Provide the link to your PUBLIC repository here: ...
 ## 5.2 Reference list
 
 Use APA referencing throughout your document.
+```{r}
+#inladen tidyverse
+library(tidyverse)
+
+#income_ineq aan het selecteren en sorteren
+income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
+  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
+  rename(
+    country = Geopolitical.entity..reporting.,
+    year = TIME_PERIOD,
+    gini = OBS_VALUE) %>%
+  filter(
+    geo != "EA20",
+    geo != "EU27_2020",
+    geo != "Kosovo*")
+
+```
+
+
+
