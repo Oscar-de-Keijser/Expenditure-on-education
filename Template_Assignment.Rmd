@@ -51,11 +51,6 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 
 midwest is an example dataset included in the tidyverse package
 ```{r}
-
-
-
-
-=======
 gender <- read.csv("data/gender_income_ineq.csv")
 gender = gender[,c ("geo", "Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
 names(gender)[names(gender) == "Geopolitical.entity..reporting."] <- "country"
@@ -63,7 +58,6 @@ names(gender)[names(gender) == "TIME_PERIOD"] <- "year"
 names(gender)[names(gender) == "OBS_VALUE"] <- "paygap_MF"
 gender <- gender[-(125:134), ]
 gender <- gender[-(82:100), ]
->>>>>>> 5137f0d2a772e4974f1660ae46933213e627a972
 ```
 
 
