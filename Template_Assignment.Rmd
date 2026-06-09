@@ -46,7 +46,25 @@ Include the following:
 Preferably from a URL, but if not, make sure to download the data and store it in a shared location that you can load the data in from. Do not store the data in a folder you include in the Github repository!
 
 ```{r loading_data}
-dataset <- midwest
+#dataset <- midwest
+
+library(readr)
+total_govt_exp <- read_csv("data/total_govt_exp.csv")
+View(total_govt_exp)
+
+library(readr)
+general_income_ineq_gini_ <- read_csv("data/general_income_ineq (gini).csv")
+View(general_income_ineq_gini_)
+library(readr)
+midwest <- read_csv("data/midwest.csv")
+View(midwest)
+
+
+
+
+
+
+
 ```
 
 midwest is an example dataset included in the tidyverse package
