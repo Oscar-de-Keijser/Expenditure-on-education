@@ -60,6 +60,18 @@ midwest <- read_csv("data/midwest.csv")
 View(midwest)
 
 
+general_income_ineq_gini_$geo
+
+summary(general_income_ineq_gini_)
+library(readr)
+tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
+View(tertiary_edu_govt_exp)
+library(readr)
+gender_income_ineq <- read_csv("data/gender_income_ineq.csv")
+View(gender_income_ineq)
+
+
+
 
 
 
