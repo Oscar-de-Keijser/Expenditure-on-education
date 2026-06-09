@@ -8,8 +8,10 @@ output: pdf_document
 # Set-up your environment
 
 ```{r package_install, include=FALSE}
-#install.packages("yaml")
-#install.packages("rmarkdown")
+install.packages("tidyverse")
+install.packages("yaml")
+install.packages("rmarkdown")
+```
 
 require(tidyverse)
 require(rmarkdown)
@@ -46,6 +48,37 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 ```{r loading_data}
 #dataset <- midwest
 
+<<<<<<< HEAD
+library(readr)
+total_govt_exp <- read_csv("data/total_govt_exp.csv")
+View(total_govt_exp)
+
+library(readr)
+general_income_ineq_gini_ <- read_csv("data/general_income_ineq (gini).csv")
+View(general_income_ineq_gini_)
+library(readr)
+midwest <- read_csv("data/midwest.csv")
+View(midwest)
+
+
+general_income_ineq_gini_$geo
+
+summary(general_income_ineq_gini_)
+library(readr)
+tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
+View(tertiary_edu_govt_exp)
+library(readr)
+gender_income_ineq <- read_csv("data/gender_income_ineq.csv")
+View(gender_income_ineq)
+
+
+
+
+
+
+
+=======
+>>>>>>> 8b6cdacfb83ad84953c53caf72911366b0dc9821
 
 ```
 
@@ -208,7 +241,7 @@ Use APA referencing throughout your document.
 #inladen tidyverse
 library(tidyverse)
 
-#income_ineq aan het selecteren en sorteren
+#income_ineq aan het selecteren
 income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
   select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
   rename(
