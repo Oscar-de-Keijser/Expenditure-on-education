@@ -10,8 +10,10 @@ output:
 # Set-up your environment
 
 ```{r package_install, include=FALSE}
-#install.packages("yaml")
-#install.packages("rmarkdown")
+install.packages("tidyverse")
+install.packages("yaml")
+install.packages("rmarkdown")
+```
 
 require(tidyverse)
 require(rmarkdown)
@@ -48,6 +50,37 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 ```{r loading_data}
 #dataset <- midwest
 
+<<<<<<< HEAD
+library(readr)
+total_govt_exp <- read_csv("data/total_govt_exp.csv")
+View(total_govt_exp)
+
+library(readr)
+general_income_ineq_gini_ <- read_csv("data/general_income_ineq (gini).csv")
+View(general_income_ineq_gini_)
+library(readr)
+midwest <- read_csv("data/midwest.csv")
+View(midwest)
+
+
+general_income_ineq_gini_$geo
+
+summary(general_income_ineq_gini_)
+library(readr)
+tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
+View(tertiary_edu_govt_exp)
+library(readr)
+gender_income_ineq <- read_csv("data/gender_income_ineq.csv")
+View(gender_income_ineq)
+
+
+
+
+
+
+
+=======
+>>>>>>> 8b6cdacfb83ad84953c53caf72911366b0dc9821
 
 ```
 
@@ -124,6 +157,14 @@ tot_gov <- tot_gov[-(141:150), ]
 tot_gov <- tot_gov[-(81:110), ]
 ```
 
+```{r}
+library(tidyverse)
+education$country <- NULL
+rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
+rel_edu <- rel_edu %>% mutate(education_share = edu_exp / tot_exp *100)
+rel_edu$education_share <- round(rel_edu$education_share,4)
+avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
+```
 
 ## 3.2 Generate necessary variables
 
