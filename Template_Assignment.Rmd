@@ -13,10 +13,10 @@ install.packages("yaml")
 install.packages("rmarkdown")
 ```
 
-```{r packages}
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
+library(readr)
 ```
 
 # Title Page
@@ -48,6 +48,7 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 ```{r loading_data}
 #dataset <- midwest
 
+<<<<<<< HEAD
 library(readr)
 total_govt_exp <- read_csv("data/total_govt_exp.csv")
 View(total_govt_exp)
@@ -76,8 +77,22 @@ View(gender_income_ineq)
 
 
 
+=======
+>>>>>>> 8b6cdacfb83ad84953c53caf72911366b0dc9821
 
 ```
+
+midwest is an example dataset included in the tidyverse package
+```{r}
+gender <- read.csv("data/gender_income_ineq.csv")
+gender = gender[,c ("geo", "Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
+names(gender)[names(gender) == "Geopolitical.entity..reporting."] <- "country"
+names(gender)[names(gender) == "TIME_PERIOD"] <- "year"
+names(gender)[names(gender) == "OBS_VALUE"] <- "paygap_MF"
+gender <- gender[-(125:134), ]
+gender <- gender[-(82:100), ]
+```
+
 
 midwest is an example dataset included in the tidyverse package
 
@@ -92,6 +107,10 @@ In this case we see 28 variables, but we miss some information on what units the
 ``` r
 inline_code = TRUE
 ```
+```{r}
+
+```
+
 
 These are things that are usually included in the metadata of the dataset. For your project, you need to provide us with the information from your metadata that we need to understand your dataset of choice.
 
@@ -116,6 +135,26 @@ mean(dataset$percollege)
 ```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
+```{r}
+education <- read.csv("data/tertiary_edu_govt_exp.csv")
+education <- education[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
+names(education)[names(education) == "Geopolitical.entity..reporting."] <- "country"
+names(education)[names(education) == "TIME_PERIOD"] <- "year"
+names(education)[names(education) == "OBS_VALUE"] <- "edu_exp"
+education <- education[-(109:119), ]
+```
+
+
+```{r}
+tot_gov <- read.csv("data/total_govt_exp.csv")
+tot_gov <- tot_gov[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
+names(tot_gov)[names(tot_gov) == "Geopolitical.entity..reporting."] <- "country"
+names(tot_gov)[names(tot_gov) == "TIME_PERIOD"] <- "year"
+names(tot_gov)[names(tot_gov) == "OBS_VALUE"] <- "tot_exp"
+tot_gov <- tot_gov[-(141:150), ]
+tot_gov <- tot_gov[-(81:110), ]
+```
+
 
 ## 3.2 Generate necessary variables
 
@@ -190,3 +229,23 @@ Provide the link to your PUBLIC repository here: ...
 ## 5.2 Reference list
 
 Use APA referencing throughout your document.
+```{r}
+#inladen tidyverse
+library(tidyverse)
+
+#income_ineq aan het selecteren
+income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
+  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
+  rename(
+    country = Geopolitical.entity..reporting.,
+    year = TIME_PERIOD,
+    gini = OBS_VALUE) %>%
+  filter(
+    geo != "EA20",
+    geo != "EU27_2020",
+    geo != "Kosovo*")
+
+```
+
+
+
