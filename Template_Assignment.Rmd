@@ -164,6 +164,7 @@ gini_edu <- rel_edu %>% inner_join(income_ineq, by = c("geo","year"))
 ```{r}
 #install.packages("sf")
 #install.packages("rnaturalearth")
+#install.packages("rnaturalearthdata")
 world <- ne_countries(scale = "medium", returnclass = "sf")
 map_eu <- world %>%
   inner_join(avg_rel_edu, by = c("name" = "country"))
@@ -177,7 +178,6 @@ ggplot(map_eu) +
     fill = "Share"
   )
 ```
-
 
 ## 3.2 Generate necessary variables
 
