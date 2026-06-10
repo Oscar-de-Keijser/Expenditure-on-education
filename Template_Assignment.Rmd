@@ -163,7 +163,6 @@ avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(e
 ```{r}
 #install.packages("sf")
 #install.packages("rnaturalearth")
-#install.packages("rnaturalearthdata")
 library(sf)
 library(rnaturalearth)
 
@@ -275,7 +274,25 @@ income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
 ```
 
 ```{r}
+#werken aan de gemiddelde per jaar
 library(tidyverse)
+#year_ave_exp_eu <- data_frame(
+#  year = c(2014,2015,2016,2017,2018,2019,2020,2021,2022,2023),
+#  eu_ave_exp = c(aselect())
+#  n = 
+#)
 
+year_avg_exp_eu <- rel_edu %>% group_by(year) %>%
+summarise(eu_ave_exp = mean(education_share),
+          max_exp = max(education_share),
+          aantalLanden = n())
+
+#maken van een graifiek met data 
+library(tidyverse)
+library(ggplot2)
+
+year_avg_exp_eu %>%
+  ggplot(aes(x=year, y=eu_ave_exp)) +
+  geom_line()
 ```
 
