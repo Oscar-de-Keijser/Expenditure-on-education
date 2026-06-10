@@ -149,6 +149,7 @@ tot_gov <- tot_gov[-(81:110), ]
 ```
 
 ```{r}
+
 library(tidyverse)
 education$country <- NULL
 rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
@@ -157,14 +158,16 @@ rel_edu$education_share <- round(rel_edu$education_share,4)
 avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
 ```
 
-```{r}
-gini_edu <- rel_edu %>% inner_join(income_ineq, by = c("geo","year"))
-```
+
 
 ```{r}
 #install.packages("sf")
 #install.packages("rnaturalearth")
 #install.packages("rnaturalearthdata")
+library(sf)
+library(rnaturalearth)
+
+
 world <- ne_countries(scale = "medium", returnclass = "sf")
 map_eu <- world %>%
   inner_join(avg_rel_edu, by = c("name" = "country"))
@@ -270,3 +273,9 @@ income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
     geo != "Kosovo*")
 
 ```
+
+```{r}
+library(tidyverse)
+
+```
+
