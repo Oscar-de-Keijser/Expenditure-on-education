@@ -54,7 +54,7 @@ total_govt_exp <- read_csv("data/total_govt_exp.csv")
 View(total_govt_exp)
 
 library(readr)
-general_income_ineq_gini_ <- read_csv("data/general_income_ineq_(gini).csv")
+general_income_ineq_gini_ <- read_csv("data/general_income_ineq (gini).csv")
 View(general_income_ineq_gini_)
 library(readr)
 midwest <- read_csv("data/midwest.csv")
@@ -143,48 +143,21 @@ gini_edu_data <- full_join(avg_gini_data, avg_rel_edu, by = c("geo", "country"))
 ```
 
 ```{r}
-gini_edu_data$region <- replace(gini_edu_data$geo, gini_edu_data$geo %in% c("DK", "EE", "FI", "IE", "IS", "LT", "LV", "NO", "SE", "NO", "UK"), "north_europe")
-
-gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AT", "BE", "CH", "DE", "FR", "LU", "NL"), "west_europe")
-
-gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AL", "CY", "EL", "ES", "HR", "IT", "ME", "MK", "MT", "PT", "RS", "SI", "TR", "XK"), "south_europe")
-                                
-gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("BG", "CZ", "HU", "PL", "RO", "SK"), "east_europe")
-
-                                                                
-```
-
-
-
-
-```{r}
 #creating scatterplot from gini_edu_data
 ggplot(gini_edu_data, 
        aes(x = avg_edu, 
-           y = avg_gini,
-           colour = region)) +
-  geom_point() +
-  scale_colour_manual(
-    values = c(
-      "west_europe" = "blue",
-      "north_europe" = "orange",
-      "south_europe" = "green",
-      "east_europe" = "red")) +
+           y = avg_gini)) +
+  geom_point(
+    colour = "violet") +
   scale_x_continuous(
     limits = c(0, 5)) +
   scale_y_continuous(
     limits = c(20, 40)) +
   labs(
-    title = "Relationship tertiary education expenditure and income inequality",
+    title = "Relationship education expenditure and income inequality",
     x = "Education expenditure (% of total govt. expenditure)",
-    y = "Gini coefficient",
-    colour = "Europe Regions") +
-  geom_smooth( #regression line
-    method = "lm", 
-    se = FALSE, 
-    colour = "black", 
-    linetype = "dotted",
-    linewidth = 0.6)
+    y = "Gini coefficient") + 
+  geom_smooth(method = "lm", se = FALSE, colour = "magenta") #regression line
 
 #I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
 ```
@@ -234,8 +207,7 @@ ggplot(map_eu) +
   scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
   coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
   theme_light() +
-  labs( title = "Tertiary Education Spending (% of Government Expenditure)",
-    fill = "Tertiary Education (%)"
+  labs(
   )
 ```
 
@@ -334,5 +306,69 @@ income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
 ```{r}
 library(tidyverse)
 
+year_avg_exp_eu <- rel_edu %>% group_by(year) %>%
+summarise(eu_ave_exp = mean(education_share),
+          aantalLanden = n())
+
+#maken van een graifiek met data (government expenditure over tijd)
+library(tidyverse)
+library(ggplot2)
+
+year_avg_exp_eu %>%
+  ggplot(aes(x=year, y=eu_ave_exp)) +
+  geom_line(
+    colour = "red") +
+  scale_x_continuous(
+    breaks = seq(2014,2023, by = 1)) +
+   labs(
+    title = "Average EU expenditure on education over the years (2014-2023)",
+    x = "years",
+    y = "Percentage expenditure education of GDP"
+  ) +
+   theme_minimal()
+  
 ```
+```{r}
+#Graph average gini over the years EU
+
+library(tidyverse)
+gini_avg_pyear_eu <- income_ineq[income_ineq$country != "Kosovo*",] %>% group_by(year) %>%
+  summarise(avg_gini = mean(gini), 
+            aantalLanden = n())
+
+#Making of graph
+
+library(ggplot2)
+
+gini_avg_pyear_eu %>% 
+  ggplot(aes(x = year, y = avg_gini)) +
+  geom_line(
+    colour = "red") +
+  scale_x_continuous(
+    breaks = seq(2014,2023, by = 1)) +
+   labs(
+    title = "Average Gini coëficient EU (2014-2023)",
+    x = "Years",
+    y = "Gini"
+  ) +
+   theme_minimal() +
+  geom_vline(
+    xintercept = 2017,
+    linetype = "dashed",
+    color = "blue",
+    linewidth = 1) + 
+  annotate(
+    "text",
+    x = 2017.8,
+    y = 30.77,
+    label = "Brexit",
+    angle = 0,
+    vjust = -0.5
+)
+  
+#graph komt wel sterk in aanmerking voor de shock 
+# Kosovo weggehaald voor de shock, er was maar één meting van 2018
+# Shock komt door BREXIT
+```
+
 
