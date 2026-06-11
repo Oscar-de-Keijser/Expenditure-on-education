@@ -175,7 +175,7 @@ ggplot(gini_edu_data,
   scale_y_continuous(
     limits = c(20, 40)) +
   labs(
-    title = "Relationship education expenditure and income inequality",
+    title = "Relationship tertiary education expenditure and income inequality",
     x = "Education expenditure (% of total govt. expenditure)",
     y = "Gini coefficient",
     colour = "Europe Regions") +
