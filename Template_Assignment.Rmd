@@ -209,7 +209,7 @@ ggplot(map_eu) +
   theme_classic() +
   labs(
     title = "Tertiary Education Expenditure as Fraction of Total Govt. Expenditure",
-    fill = "Share (%)"
+    fill = "Education expenditure (% of total expenditure)"
   )
 ```
 
