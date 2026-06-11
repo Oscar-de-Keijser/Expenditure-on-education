@@ -184,7 +184,7 @@ ggplot(gini_edu_data,
     se = FALSE, 
     colour = "black", 
     linetype = "dotted",
-    linewidth = 0.6)
+    linewidth = 0.6) + theme_minimal()
 
 #I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
 ```
