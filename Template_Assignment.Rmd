@@ -14,7 +14,6 @@ install.packages("tidyverse")
 install.packages("yaml")
 install.packages("rmarkdown")
 
-
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
@@ -128,6 +127,40 @@ Say we want to include only larger distances (above 2) in our dataset, we can fi
 ```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
+```{r}
+#create dataset w gini avg (per country)
+avg_gini_data <- income_ineq %>% group_by(geo, country) %>%
+summarise (avg_gini = mean(gini), n_obs = n()) %>%
+arrange(desc(avg_gini))
+```
+ 
+```{r}
+#join avg_gini and avg_edu in new dataset
+library(tidyverse)
+gini_edu_data <- full_join(avg_gini_data, avg_rel_edu, by = c("geo", "country"))
+  gini_edu_data$n_obs.x <- NULL
+  gini_edu_data$n_obs.y <- NULL
+```
+
+```{r}
+#creating scatterplot from gini_edu_data
+ggplot(gini_edu_data, 
+       aes(x = avg_edu, 
+           y = avg_gini)) +
+  geom_point(
+    colour = "violet") +
+  scale_x_continuous(
+    limits = c(0, 5)) +
+  scale_y_continuous(
+    limits = c(20, 40)) +
+  labs(
+    title = "Relationship education expenditure and income inequality",
+    x = "Education expenditure (% of total govt. expenditure)",
+    y = "Gini coefficient") + 
+  geom_smooth(method = "lm", se = FALSE, colour = "magenta") #regression line
+
+#I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
+```
 
 ```{r}
 education <- read.csv("data/tertiary_edu_govt_exp.csv")
@@ -149,7 +182,6 @@ tot_gov <- tot_gov[-(81:110), ]
 ```
 
 ```{r}
-
 library(tidyverse)
 education$country <- NULL
 rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
@@ -167,7 +199,6 @@ avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(e
 library(sf)
 library(rnaturalearth)
 
-
 world <- ne_countries(scale = "medium", returnclass = "sf")
 map_eu <- world %>%
   inner_join(avg_rel_edu, by = c("name" = "country"))
@@ -177,8 +208,8 @@ ggplot(map_eu) +
   coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
   theme_classic() +
   labs(
-    title = "Tertiary Education Expenditure Share",
-    fill = "Share"
+    title = "Tertiary Education Expenditure as Fraction of Total Govt. Expenditure",
+    fill = "Share (%)"
   )
 ```
 
