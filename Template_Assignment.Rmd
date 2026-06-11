@@ -196,6 +196,9 @@ avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(e
 #install.packages("sf")
 #install.packages("rnaturalearth")
 #install.packages("rnaturalearthdata")
+install.packages("sf")
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
 library(sf)
 library(rnaturalearth)
 
