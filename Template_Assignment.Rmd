@@ -204,10 +204,8 @@ map_eu <- world %>%
   inner_join(avg_rel_edu, by = c("name" = "country"))
 ggplot(map_eu) +
   geom_sf(aes(fill = avg_edu), color = "white", linewidth = 0.2) +
-  scale_fill_gradient(low = "red", high = "green") +
   scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
   coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
-  theme_classic() +
   theme_light() +
   labs(
     title = "Tertiary Education Expenditure as Fraction of Total Govt. Expenditure",
