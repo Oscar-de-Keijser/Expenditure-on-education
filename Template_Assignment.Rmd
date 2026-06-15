@@ -125,7 +125,68 @@ Think of things like:
 Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
 
 ```{r data_cleaning}
-#mean(dataset$percollege)
+#inladen tidyverse
+library(tidyverse)
+
+#income_ineq aan het selecteren
+income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
+  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
+  rename(
+    country = Geopolitical.entity..reporting.,
+    year = TIME_PERIOD,
+    gini = OBS_VALUE) %>%
+  filter(
+    geo != "EA20",
+    geo != "EU27_2020",
+    geo != "Kosovo*")
+
+```
+
+```{r}
+education <- read.csv("data/tertiary_edu_govt_exp.csv")
+education <- education[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
+names(education)[names(education) == "Geopolitical.entity..reporting."] <- "country"
+names(education)[names(education) == "TIME_PERIOD"] <- "year"
+names(education)[names(education) == "OBS_VALUE"] <- "edu_exp"
+education <- education[-(109:119), ]
+```
+
+```{r}
+tot_gov <- read.csv("data/total_govt_exp.csv")
+tot_gov <- tot_gov[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
+names(tot_gov)[names(tot_gov) == "Geopolitical.entity..reporting."] <- "country"
+names(tot_gov)[names(tot_gov) == "TIME_PERIOD"] <- "year"
+names(tot_gov)[names(tot_gov) == "OBS_VALUE"] <- "tot_exp"
+tot_gov <- tot_gov[-(141:150), ]
+tot_gov <- tot_gov[-(81:110), ]
+```
+
+```{r}
+library(tidyverse)
+education$country <- NULL
+rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
+rel_edu <- rel_edu %>% mutate(education_share = edu_exp / tot_exp *100)
+rel_edu$education_share <- round(rel_edu$education_share,4)
+avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
+```
+
+```{r}
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("rnaturalearthdata")
+library(sf)
+library(rnaturalearth)
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+map_eu <- world %>%
+  inner_join(avg_rel_edu, by = c("name" = "country"))
+ggplot(map_eu) +
+  geom_sf(aes(fill = avg_edu), color = "white", linewidth = 0.2) +
+  scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
+  coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
+  theme_light() +
+  labs(
+  )
 ```
 
 Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
@@ -188,54 +249,10 @@ ggplot(gini_edu_data,
 #I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
 ```
 
-```{r}
-education <- read.csv("data/tertiary_edu_govt_exp.csv")
-education <- education[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
-names(education)[names(education) == "Geopolitical.entity..reporting."] <- "country"
-names(education)[names(education) == "TIME_PERIOD"] <- "year"
-names(education)[names(education) == "OBS_VALUE"] <- "edu_exp"
-education <- education[-(109:119), ]
-```
-
-```{r}
-tot_gov <- read.csv("data/total_govt_exp.csv")
-tot_gov <- tot_gov[, c("geo","Geopolitical.entity..reporting.", "TIME_PERIOD", "OBS_VALUE")]
-names(tot_gov)[names(tot_gov) == "Geopolitical.entity..reporting."] <- "country"
-names(tot_gov)[names(tot_gov) == "TIME_PERIOD"] <- "year"
-names(tot_gov)[names(tot_gov) == "OBS_VALUE"] <- "tot_exp"
-tot_gov <- tot_gov[-(141:150), ]
-tot_gov <- tot_gov[-(81:110), ]
-```
-
-```{r}
-library(tidyverse)
-education$country <- NULL
-rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
-rel_edu <- rel_edu %>% mutate(education_share = edu_exp / tot_exp *100)
-rel_edu$education_share <- round(rel_edu$education_share,4)
-avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
-```
 
 
 
-```{r}
-#install.packages("sf")
-#install.packages("rnaturalearth")
-#install.packages("rnaturalearthdata")
-library(sf)
-library(rnaturalearth)
 
-world <- ne_countries(scale = "medium", returnclass = "sf")
-map_eu <- world %>%
-  inner_join(avg_rel_edu, by = c("name" = "country"))
-ggplot(map_eu) +
-  geom_sf(aes(fill = avg_edu), color = "white", linewidth = 0.2) +
-  scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
-  coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
-  theme_light() +
-  labs(
-  )
-```
 
 ## 3.2 Generate necessary variables
 
@@ -268,7 +285,6 @@ Here you provide a description of why the plot above is relevant to your specifi
 ## 3.5 Visualize sub-population variation
 
 What is the poverty rate by state
-```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
@@ -276,24 +292,8 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 Analyze the relationship between two variables.
 
-```{r analysis}
-```{r}
-#inladen tidyverse
-library(tidyverse)
 
-#income_ineq aan het selecteren
-income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
-  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
-  rename(
-    country = Geopolitical.entity..reporting.,
-    year = TIME_PERIOD,
-    gini = OBS_VALUE) %>%
-  filter(
-    geo != "EA20",
-    geo != "EU27_2020",
-    geo != "Kosovo*")
-
-```
+  
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
 
@@ -363,13 +363,13 @@ gini_avg_pyear_eu %>%
   ) +
    theme_minimal() +
   geom_vline(
-    xintercept = 2017,
+    xintercept = 2018,
     linetype = "dashed",
     color = "black",
-    linewidth = 1) + 
+    linewidth = 0.7) + 
   annotate(
     "text",
-    x = 2017.8,
+    x = 2018.8,
     y = 30.77,
     label = "Brexit",
     angle = 0,
@@ -379,6 +379,9 @@ gini_avg_pyear_eu %>%
 #graph komt wel sterk in aanmerking voor de shock 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
 # Shock komt door BREXIT
+
+
 ```
+
 
 
