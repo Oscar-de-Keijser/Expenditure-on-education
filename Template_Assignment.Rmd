@@ -3,6 +3,7 @@ title: "Template"
 author: "Studentnames and studentnumbers here"
 date: "`r Sys.Date()`"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
