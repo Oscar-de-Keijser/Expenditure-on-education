@@ -11,14 +11,15 @@ output:
 # Set-up your environment
 
 ```{r package_install, include=FALSE}
-install.packages("tidyverse")
-install.packages("yaml")
-install.packages("rmarkdown")
+#install.packages("tidyverse")
+#install.packages("yaml")
+#install.packages("rmarkdown")
 
 require(tidyverse)
 require(rmarkdown)
 require(yaml)
 library(readr)
+library(tidyverse)
 ```
 
 # Title Page
@@ -55,7 +56,7 @@ total_govt_exp <- read_csv("data/total_govt_exp.csv")
 View(total_govt_exp)
 
 library(readr)
-general_income_ineq_gini_ <- read_csv("data/general_income_ineq (gini).csv")
+general_income_ineq_gini_ <- read_csv("data/general_income_ineq_(gini).csv")
 View(general_income_ineq_gini_)
 library(readr)
 midwest <- read_csv("data/midwest.csv")
@@ -144,21 +145,37 @@ gini_edu_data <- full_join(avg_gini_data, avg_rel_edu, by = c("geo", "country"))
 ```
 
 ```{r}
+gini_edu_data$region <- replace(gini_edu_data$geo, gini_edu_data$geo %in% c("DK", "EE", "FI", "IE", "IS", "LT", "LV", "NO", "SE", "NO", "UK"), "north_europe")
+
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AT", "BE", "CH", "DE", "FR", "LU", "NL"), "west_europe")
+
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AL", "CY", "EL", "ES", "HR", "IT", "ME", "MK", "MT", "PT", "RS", "SI", "TR", "XK"), "south_europe")
+                                
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("BG", "CZ", "HU", "PL", "RO", "SK"), "east_europe")
+
+```
+
+
+```{r}
 #creating scatterplot from gini_edu_data
 ggplot(gini_edu_data, 
        aes(x = avg_edu, 
-           y = avg_gini)) +
-  geom_point(
-    colour = "violet") +
+           y = avg_gini,
+           colour = region)) +
+  geom_point() +
+  scale_colour_manual(
+    values = c(
+      "west_europe" = "blue",
+      "north_europe" = "orange",
+      "south_europe" = "green",
+      "east_europe" = "red")) +
   scale_x_continuous(
     limits = c(0, 5)) +
   scale_y_continuous(
     limits = c(20, 40)) +
   labs(
-    title = "Relationship education expenditure and income inequality",
+    title = "Relationship tertiary education expenditure and income inequality",
     x = "Education expenditure (% of total govt. expenditure)",
-    y = "Gini coefficient") + 
-  geom_smooth(method = "lm", se = FALSE, colour = "magenta") #regression line
     y = "Gini coefficient",
     colour = "Europe Regions") +
   geom_smooth( #regression line
