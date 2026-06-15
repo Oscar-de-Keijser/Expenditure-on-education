@@ -158,6 +158,14 @@ ggplot(gini_edu_data,
     x = "Education expenditure (% of total govt. expenditure)",
     y = "Gini coefficient") + 
   geom_smooth(method = "lm", se = FALSE, colour = "magenta") #regression line
+    y = "Gini coefficient",
+    colour = "Europe Regions") +
+  geom_smooth( #regression line
+    method = "lm", 
+    se = FALSE, 
+    colour = "black", 
+    linetype = "dotted",
+    linewidth = 0.6) + theme_minimal()
 
 #I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
 ```
