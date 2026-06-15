@@ -183,7 +183,7 @@ ggplot(gini_edu_data,
     se = FALSE, 
     colour = "black", 
     linetype = "dotted",
-    linewidth = 0.6) + theme_minimal()
+    linewidth = 0.8) + theme_minimal()
 
 #I might wanna add: deviation from regression line (se = TRUE?) / correlation strength
 ```
@@ -267,22 +267,7 @@ Here you provide a description of why the plot above is relevant to your specifi
 
 ## 3.5 Visualize sub-population variation
 
-What is the poverty rate by state?
-
-```{r visualise_subpopulations}
-dataset$inmetro <- dataset$inmetro %>% as.factor()
-# Boxplot of poverty rate by state using the 'midwest' dataset
-ggplot(dataset, aes(x = inmetro, y = percadultpoverty)) +
-  geom_boxplot() +
-  labs(
-    title = "Distribution of Poverty Rates by Metropolitan status (Midwest counties)",
-    x = "Metropolitan Area",
-    y = "Poverty Rate of Adults (%)"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "right"
-  )
+What is the poverty rate by state
 ```
 
 Here you provide a description of why the plot above is relevant to your specific social problem.
@@ -292,6 +277,21 @@ Here you provide a description of why the plot above is relevant to your specifi
 Analyze the relationship between two variables.
 
 ```{r analysis}
+```{r}
+#inladen tidyverse
+library(tidyverse)
+
+#income_ineq aan het selecteren
+income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
+  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
+  rename(
+    country = Geopolitical.entity..reporting.,
+    year = TIME_PERIOD,
+    gini = OBS_VALUE) %>%
+  filter(
+    geo != "EA20",
+    geo != "EU27_2020",
+    geo != "Kosovo*")
 
 ```
 
@@ -311,23 +311,7 @@ Provide the link to your PUBLIC repository here: ...
 
 Use APA referencing throughout your document.
 
-```{r}
-#inladen tidyverse
-library(tidyverse)
 
-#income_ineq aan het selecteren
-income_ineq <- read.csv("data/general_income_ineq_(gini).csv") %>%
-  select(geo, Geopolitical.entity..reporting., TIME_PERIOD, OBS_VALUE) %>%
-  rename(
-    country = Geopolitical.entity..reporting.,
-    year = TIME_PERIOD,
-    gini = OBS_VALUE) %>%
-  filter(
-    geo != "EA20",
-    geo != "EU27_2020",
-    geo != "Kosovo*")
-
-```
 
 ```{r}
 library(tidyverse)
@@ -369,7 +353,7 @@ library(ggplot2)
 gini_avg_pyear_eu %>% 
   ggplot(aes(x = year, y = avg_gini)) +
   geom_line(
-    colour = "red") +
+    colour = "darkgreen") +
   scale_x_continuous(
     breaks = seq(2014,2023, by = 1)) +
    labs(
@@ -381,7 +365,7 @@ gini_avg_pyear_eu %>%
   geom_vline(
     xintercept = 2017,
     linetype = "dashed",
-    color = "blue",
+    color = "black",
     linewidth = 1) + 
   annotate(
     "text",
