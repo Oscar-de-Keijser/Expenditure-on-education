@@ -54,29 +54,9 @@ Preferably from a URL, but if not, make sure to download the data and store it i
 ```{r loading_data}
 #dataset <- midwest
 
-library(readr)
 total_govt_exp <- read_csv("data/total_govt_exp.csv")
-View(total_govt_exp)
-
-library(readr)
 general_income_ineq_gini_ <- read_csv("data/general_income_ineq_(gini).csv")
-View(general_income_ineq_gini_)
-library(readr)
-midwest <- read_csv("data/midwest.csv")
-View(midwest)
-
-
-general_income_ineq_gini_$geo
-
-summary(general_income_ineq_gini_)
-library(readr)
 tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
-View(tertiary_edu_govt_exp)
-library(readr)
-gender_income_ineq <- read_csv("data/gender_income_ineq.csv")
-View(gender_income_ineq)
-
-
 ```
 
 midwest is an example dataset included in the tidyverse package
@@ -86,19 +66,9 @@ midwest is an example dataset included in the tidyverse package
 
 ## 2.2 Provide a short summary of the dataset(s)
 
-```{r}
-#head(dataset)
-```
 
 In this case we see 28 variables, but we miss some information on what units they are in. We also don't know anything about the year/moment in which this data has been captured.
 
-``` r
-inline_code = TRUE
-```
-
-```{r}
-
-```
 
 These are things that are usually included in the metadata of the dataset. For your project, you need to provide us with the information from your metadata that we need to understand your dataset of choice.
 
@@ -253,13 +223,37 @@ ggplot(gini_edu_data,
 Variable 1
 
 ```{r gen_var1}
-
+library(tidyverse)
+education$country <- NULL
+rel_edu <- education %>% inner_join(tot_gov, by = c("geo","year"))
+rel_edu <- rel_edu %>% mutate(education_share = edu_exp / tot_exp *100)
+rel_edu$education_share <- round(rel_edu$education_share,4)
+avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
 ```
 
 Variable 2
 
 ```{r gen_var2}
+#create dataset w gini avg (per country)
+avg_gini_data <- income_ineq %>% group_by(geo, country) %>%
+summarise (avg_gini = mean(gini), n_obs = n()) %>%
+arrange(desc(avg_gini))
+```
 
+```{r gen_var2}
+gini_edu_data <- full_join(avg_gini_data, avg_rel_edu, by = c("geo", "country"))
+  gini_edu_data$n_obs.x <- NULL
+  gini_edu_data$n_obs.y <- NULL
+```
+
+```{r gen_var2}  
+gini_edu_data$region <- replace(gini_edu_data$geo, gini_edu_data$geo %in% c("DK", "EE", "FI", "IE", "IS", "LT", "LV", "NO", "SE", "NO", "UK"), "north_europe")
+
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AT", "BE", "CH", "DE", "FR", "LU", "NL"), "west_europe")
+
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AL", "CY", "EL", "ES", "HR", "IT", "ME", "MK", "MT", "PT", "RS", "SI", "TR", "XK"), "south_europe")
+                                
+gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("BG", "CZ", "HU", "PL", "RO", "SK"), "east_europe")
 ```
 
 ## 3.3 Visualize temporal variation
