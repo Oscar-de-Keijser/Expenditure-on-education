@@ -147,13 +147,13 @@ summarise (avg_gini = mean(gini), n_obs = n()) %>%
 arrange(desc(avg_gini))
 ```
 
-```{r gen_var2}
+```{r gen_var2b}
 gini_edu_data <- full_join(avg_gini_data, avg_rel_edu, by = c("geo", "country"))
   gini_edu_data$n_obs.x <- NULL
   gini_edu_data$n_obs.y <- NULL
 ```
 
-```{r gen_var2}  
+```{r gen_var2a}  
 gini_edu_data$region <- replace(gini_edu_data$geo, gini_edu_data$geo %in% c("DK", "EE", "FI", "IE", "IS", "LT", "LV", "NO", "SE", "NO", "UK"), "north_europe")
 
 gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("AT", "BE", "CH", "DE", "FR", "LU", "NL"), "west_europe")
