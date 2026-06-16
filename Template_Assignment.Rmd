@@ -321,7 +321,7 @@ library(ggplot2)
 year_avg_exp_eu %>%
   ggplot(aes(x=year, y=eu_ave_exp)) +
   geom_line(
-    colour = "red") +
+    colour = "darkgreen") +
   scale_x_continuous(
     breaks = seq(2014,2023, by = 1)) +
    labs(
@@ -329,7 +329,20 @@ year_avg_exp_eu %>%
     x = "years",
     y = "Percentage expenditure education of GDP"
   ) +
-   theme_minimal()
+   theme_minimal()+
+  geom_vline(
+    xintercept = 2019,
+    linetype = "dashed",
+    color = "black",
+    linewidth = 0.7) + 
+  annotate(
+    "text",
+    x = 2019.6,
+    y = 2.7,
+    label = "Corona",
+    angle = 0,
+    vjust = -0.5
+)
   
 ```
 ```{r}
@@ -347,28 +360,15 @@ library(ggplot2)
 gini_avg_pyear_eu %>% 
   ggplot(aes(x = year, y = avg_gini)) +
   geom_line(
-    colour = "darkgreen") +
+    colour = "purple") +
   scale_x_continuous(
     breaks = seq(2014,2023, by = 1)) +
    labs(
     title = "Average Gini coëficient EU (2014-2023)",
-    x = "Years",
-    y = "Gini"
+    x = "Year",
+    y = "Gini coeficient"
   ) +
-   theme_minimal() +
-  geom_vline(
-    xintercept = 2018,
-    linetype = "dashed",
-    color = "black",
-    linewidth = 0.7) + 
-  annotate(
-    "text",
-    x = 2018.8,
-    y = 30.77,
-    label = "Brexit",
-    angle = 0,
-    vjust = -0.5
-)
+   theme_minimal() 
   
 #graph komt wel sterk in aanmerking voor de shock 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
