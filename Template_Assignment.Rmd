@@ -279,13 +279,13 @@ year_avg_exp_eu %>%
   ) +
    theme_minimal()+
   geom_vline(
-    xintercept = 2019,
+    xintercept = 2020,
     linetype = "dashed",
     color = "black",
     linewidth = 0.7) + 
   annotate(
     "text",
-    x = 2019.6,
+    x = 2020.6,
     y = 2.7,
     label = "Covid-19",
     angle = 0,
