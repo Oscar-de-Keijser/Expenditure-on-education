@@ -208,7 +208,7 @@ gini_avg_pyear_eu %>%
    theme_minimal() 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
 ```
-
+The Gini coefficient is declining over a time period of nine years (2014-2019). With a significant decline from 2017 to 2020, falling back to a stable lower level from 2020 onward.
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
@@ -307,8 +307,8 @@ year_avg_exp_eu %>%
     vjust = -0.5,
 )
 ```
+Tertiary education expenditure spending goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the peak year of Covid-19. After 2020 the spending recovers only to fall down significantly in 20203.
 
-Here you provide a description of why the plot above is relevant to your specific social problem.
 
 # Part 4 - Discussion
 
