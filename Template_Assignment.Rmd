@@ -319,8 +319,8 @@ Tertiary education expenditure spending goes down over a period of nine years (2
 # Part 5 - Reproducibility
 
 ## 5.1 Github repository link
+https://github.com/Oscar-de-Keijser/Expenditure-on-education
 
-Provide the link to your PUBLIC repository here: ...
 
 ## 5.2 Reference list
 
