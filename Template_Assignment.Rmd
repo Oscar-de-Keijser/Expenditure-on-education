@@ -193,8 +193,9 @@ gini_avg_pyear_eu %>%
     breaks = seq(2014,2023, by = 1)) +
    labs(
     title = "Average Gini Coefficient Europe (2014-2023)",
-    x = "Year",
-    y = "Gini Coefficient"
+    x = "Years",
+    y = "Gini Coefficient",
+    caption = "Source: Eurostat (2026a)"
   ) +
    theme_minimal() 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
@@ -214,7 +215,8 @@ ggplot(map_eu) +
   scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
   coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
   theme_light() +
-  labs( title = "Tertiary Education Spending (% Of Government Expenditure)", fill = "Tertiary Education (%)"
+  labs( title = "Tertiary Education Spending (% Of Government Expenditure)", fill = "Tertiary Education (%)",
+        caption = "Source: Eurostat (2026b); Eurostat (2026c)"
   )
 ```
 
@@ -243,7 +245,8 @@ ggplot(gini_edu_data,
     title = "Relationship Tertiary Education Expenditure and Income Inequality",
     x = "Tertiary Education Spending (%)",
     y = "Gini coefficient",
-    colour = "Europe Regions") +
+    colour = "Europe Regions",
+    caption = "Source: Eurostat (2026a); Eurostat (2026b); Eurostat (2026c)") +
   geom_smooth( #regression line
     method = "lm", 
     se = FALSE, 
@@ -275,7 +278,8 @@ year_avg_exp_eu %>%
    labs(
     title = "Average European Tertiary Expenditure over time (2014-2023)",
     x = "Years",
-    y = "Tertiary Education Spending (%)"
+    y = "Tertiary Education Spending (%)",
+    caption = "Source: Eurostat (2026b); Eurostat (2026c)"
   ) +
    theme_minimal()+
   geom_vline(
@@ -289,7 +293,7 @@ year_avg_exp_eu %>%
     y = 2.7,
     label = "Covid-19",
     angle = 0,
-    vjust = -0.5
+    vjust = -0.5,
 )
 ```
 
