@@ -85,6 +85,8 @@ Think of things like:
 
 ## 3.1 Data cleaning
 
+
+
 Say we want to include only larger distances (above 2) in our dataset, we can filter for this.
 
 ```{r data_cleaning}
@@ -127,13 +129,13 @@ Please use a separate 'R block' of code for each type of cleaning. So, e.g. one 
 
 ## 3.2 Generate necessary variables
 
-For our analysis we created several new variables to create a better understanding of how expenditure on tertiary education affects the income inequality in Europe. First, we merged the tertiary education expenditure dataset with the total government expenditure dataset. Based on this merged dataset we created a new variable by dividing the tertiary education expenditure with the total government expenditure. This variable gives a more accurate presentation of the tertiary education expenses by a country. 
+For our analysis we created several new variables to facilitate a better understanding of how expenditure on tertiary education affects the income inequality in Europe. First, we merged the tertiary education expenditure dataset with the total government expenditure dataset. Based on this merged dataset we created a new variable by dividing the tertiary education expenditure with the total government expenditure. This variable gives a more accurate presentation of the tertiary education expenses by a country. 
 
-For our second variable we created the average gini coefficient by taking the mean of the gini coefficients over the years for each country. We did the same for the tertiary education variable for each country.
+For our second variable we created the average Gini coefficient by taking the mean of the Gini coefficients over the years for each country (2014-2023). We did the same for the tertiary education variable for each country.
 
 For our third variable we divided the countries within the datasets of tertiary education and general income inequality into four regions: 'North Europe', 'West Europe', 'South Europe' and 'East Europe' (WorldAtlas, 2025). 
 
-For our final variable we created the average gini coefficient and the average tertiary education variable for all European countries in the datasets over time. 
+For our fourth variable we created the average Gini coefficient and the average tertiary education variable for all European countries in the datasets over time (2014-2023)
 
 Variable 1
 
