@@ -1,6 +1,11 @@
 ---
-title: "Template"
-author: "Studentnames and studentnumbers here"
+title: "The quantitative relationship between government expenditure on tertiary education and income inequality"
+author: "Koen Stokvis – 2859043 
+Oscar de Keijser – 2862760 
+Zoe Cheung – 2802886 
+Khumo Nasipkulov – 2908830 
+Majd al-Jawald – 2806525 
+Julia Smit – 2897717 "
 date: "`r Sys.Date()`"
 output:
   pdf_document: default
@@ -27,23 +32,21 @@ library(tidyverse)
 
 # Title Page
 
-Include your names
+Koen Stokvis, Oscar de Keijser, Zoe Cheung, Khumo Nasipkoluv, Majd al-Jawald, Julia Smit
 
-Include the tutorial group number
+Tutorial 1 Group 2
 
-Include your tutorial lecturer's name
+Chantal Schouwenaar
 
 # Part 1 - Identify a Social Problem
 
-Use APA referencing throughout your document. [Here's a link to some explanation.](https://www.mendeley.com/guides/apa-citation-guide/)
-
 ## 1.1 Describe the Social Problem
 
-Include the following:
+Income inequality has been a prominent issue worldwide for many decades. Although some inequality is inevitable in a market-based economic system as a result of differences in talent, effort, and luck, excessive inequality can reduce economic growth by lowering consumer demand, increasing social tensions, and limiting opportunities for lower-income groups (International Monetary Fund, nd). In fact, recent empirical studies show that in many advanced economies, including Germany, Japan, and the United States, inequality has reached levels that negatively affect economic performance (Peterson & Schoof, 2015). 
 
-- Why is this relevant?
+A possible approach to reducing income inequality is through increased investment in education. Education is widely seen as a fundamental driver of economic growth and welfare. Studies consistently show that higher levels of education are associated with greater individual earnings, lower poverty rates, and stronger long-term economic growth (Grant, 2017). Improving equal access to education could therefore promote both social equity and sustainable economic growth (Cingano, 2014).  
 
-- ...
+In this report we quantify the relationship between income inequality and government expenditure on education. We specifically examine the Gini-coefficient in European countries over the past years, compared to the share of government expenditure allocated to education. 
 
 # Part 2 - Data Sourcing
 
@@ -58,10 +61,6 @@ general_income_ineq_gini_ <- read_csv("data/general_income_ineq_(gini).csv")
 tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
 ```
 
-midwest is an example dataset included in the tidyverse package
-
-
-midwest is an example dataset included in the tidyverse package
 
 ## 2.2 Provide a short summary of the dataset(s)
 
@@ -86,9 +85,6 @@ Think of things like:
 ## 3.1 Data cleaning
 
 We renamed some variables in the rows of every dataset to make programming with them easier, and for clarity. "OBS_VALUE" was initially found in multiple datasets but had different meanings, and would otherwise cause confusion. We removed rows containing averages of multiple European countries across multiple years, which we did not need. We also removed Kosovo because this country only had data of one year. 
-
-1. Rename variables for clarity 
-2. Remove rows with insufficient or irrelevant data – to get consistent results, we removed countries with insufficient data and rows containing Europe averages 
 
 ```{r data_cleaning}
 #inladen tidyverse
@@ -126,7 +122,6 @@ tot_gov <- tot_gov[-(141:150), ]
 tot_gov <- tot_gov[-(81:110), ]
 ```
 
-Please use a separate 'R block' of code for each type of cleaning. So, e.g. one for missing values, a new one for removing unnecessary variables etc.
 
 ## 3.2 Generate necessary variables
 
@@ -138,7 +133,6 @@ For our third variable we divided the countries within the datasets of tertiary 
 
 For our fourth variable we created the average Gini coefficient and the average tertiary education variable for all European countries in the datasets over time (2014-2023)
 
-Variable 1
 
 ```{r gen_var1}
 library(tidyverse)
@@ -149,7 +143,6 @@ rel_edu$education_share <- round(rel_edu$education_share,4)
 avg_rel_edu <- rel_edu %>% group_by(geo, country) %>% summarise(avg_edu = mean(education_share), n_obs = n()) %>% arrange(desc(avg_edu))
 ```
 
-Variable 2
 
 ```{r gen_var2}
 #create dataset w gini avg (per country)
@@ -174,7 +167,6 @@ gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% 
 gini_edu_data$region <- replace(gini_edu_data$region, gini_edu_data$region %in% c("BG", "CZ", "HU", "PL", "RO", "SK"), "east_europe")
 ```
 
-Variable 3
 
 ```{r gen_var3} 
 year_avg_exp_eu <- rel_edu %>% group_by(year) %>%
@@ -182,7 +174,6 @@ summarise(eu_ave_exp = mean(education_share),
           aantalLanden = n())
 ```
 
-Variable 4
 
 ```{r gen_var4} 
 gini_avg_pyear_eu <- income_ineq[income_ineq$country != "Kosovo*",] %>% group_by(year) %>%
@@ -203,15 +194,15 @@ gini_avg_pyear_eu %>%
   scale_x_continuous(
     breaks = seq(2014,2023, by = 1)) +
    labs(
-    title = "Average Gini Coefficient Europe (2014-2023)",
+    title = "Average European Income Inequality Over Time (2014-2023)",
     x = "Years",
-    y = "Gini Coefficient",
+    y = "Average Gini Coefficient",
     caption = "Source: Eurostat (2026a)"
   ) +
    theme_minimal() 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
 ```
-The Gini coefficient is declining over a time period of nine years (2014-2019). With a significant decline from 2017 to 2020, falling back to a stable lower level from 2020 onward.
+The average income inequality in Europe (see 3.2) is declining over a time period of nine years (2014-2019). With a significant decline from 2017 to 2020, falling back to a stable lower level from 2020 onward.
 ## 3.4 Visualize spatial variation
 
 ```{r visualise_map}
@@ -225,13 +216,13 @@ ggplot(map_eu) +
   geom_sf(aes(fill = avg_edu), color = "white", linewidth = 0.2) +
   scale_fill_gradient2(low = "red", mid = "yellow", high = "green",midpoint = 2.615328, limits = c(1.073967, 4.701338), breaks = c(1.073967, 2.615328,  4.701338), labels = c("Min: 1.07", "Mean: 2.06", "Max: 4.70")) +
   coord_sf(xlim = c(-25,45), ylim = c(34,72), expand = FALSE) +
-  theme_light() +
+  theme_light() +  
   labs( title = "Tertiary Education Spending (% Of Government Expenditure)", fill = "Tertiary Education (%)",
         caption = "Source: Eurostat (2026b); Eurostat (2026c)"
   )
 ```
 
-When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries is visible. North and West Europe spend relatively more on tertiary education than South and East Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
+When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries can be seen. North and West Europe spend relatively more on tertiary education than South and East Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
 
 ## 3.5 Visualize sub-population variation
 
@@ -269,13 +260,7 @@ ggplot(gini_edu_data,
 Across all datapoints on the scatterplot, a trend line can be drawn that shows a negative correlation between the average tertiary education expenditure and average income inequality (see 3.2). Northern Europe has a high spread in both inequality and spendings, with spendings being on the higher end of the total distribution. Western Europe has similar inequality but high spread in spendings. Southern Europe has moderate spread in both inequality and spendings. Eastern Europe has similar spendings but high spread in inequality.
 
 
-What is the poverty rate by state
-
-Here you provide a description of why the plot above is relevant to your specific social problem.
-
 ## 3.6 Event analysis
-
-Analyze the relationship between two variables.
 
 ```{r event_analysis}
 #maken van een graifiek met data (government expenditure over tijd)
@@ -290,7 +275,7 @@ year_avg_exp_eu %>%
   scale_x_continuous(
     breaks = seq(2014,2023, by = 1)) +
    labs(
-    title = "Average European Tertiary Expenditure over time (2014-2023)",
+    title = "Average European Tertiary Expenditure Over Time (2014-2023)",
     x = "Years",
     y = "Tertiary Education Spending (%)",
     caption = "Source: Eurostat (2026b); Eurostat (2026c)"
@@ -310,19 +295,41 @@ year_avg_exp_eu %>%
     vjust = -0.5,
 )
 ```
-Tertiary education expenditure spending goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the peak year of Covid-19. After 2020 the spending recovers only to fall down significantly in 20203.
+The average tertiary education expenditure in Europe (see 3.2) goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the peak year of Covid-19. After 2020 the spending recovers only to fall down significantly in 2023.
 
 
 # Part 4 - Discussion
 
 ## 4.1 Discuss your findings
 
+Our analysis shows that there is a negative relationship between government expenditure on tertiary education and income inequality (see 3.5). We found that the Gini coefficient has declined over the years meaning that income inequality has decreased (see 3.3). However, we found that the tertiary education expenditure, as a percentage of total government spending, has also declined (see 3.6). 
+
+This is in contradiction with the negative relationship we found. In our spatial analysis graph, we see a high level of tertiary education spending in Scandinavia (see 3.4). In these Scandinavian countries there is a low level of income inequality. Further research could examine why this negative relationship is present in Scandinavia. 
+
+All data used in this research is obtained from Eurostat. Even though relying on only one data source ensures consistency, it may limit the reliability of the findings. Furthermore, this analysis only considers the proportion of total government spending spent on education and does not account for differences in absolute expenditure between countries. In addition, income inequality is influenced by many factors. This research focusses exclusively on the possible effect of educational spending and does not consider any other factors. Therefore, the results of this research can be seen as indicating an association, rather than a causal relationship. Future research could include additional determinants of income inequality and examine changes in absolute spending.
+
+
 # Part 5 - Reproducibility
 
 ## 5.1 Github repository link
+
 https://github.com/Oscar-de-Keijser/Expenditure-on-education
 
 
 ## 5.2 Reference list
 
-Use APA referencing throughout your document.
+Cingano, F. (2014). Trends in Income Inequality. OECD. https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/12/trends-in-income-inequality-and-its-impact-on-economic-growth_g17a2582/5jxrjncwxv6j-en.pdf 
+
+Eurostat. (2026a). Gini coefficient of equivalised disposable income. https://doi.org/10.2908/TESSI190
+
+Eurostat. (2026b). Public educational expenditure by education level, programme orientation, type of source and expenditure category. https://doi.org/10.2908/EDUC_UOE_FINE02
+
+Eurostat. (2026c). General government expenditure by function (COFOG). https://doi.org/10.2908/GOV_10A_EXP
+
+Grant, C. (2017). The contribution of education to economic growth. Institute of Development Studies. K4D. https://hdl.handle.net/20.500.12413/13117 
+
+International Monetary Fund. (n.d.). Introduction to Inequality.  https://www.imf.org/en/topics/inequality/introduction-to-inequality 
+
+Peterson, T., & Schoof, U. (2015). The Impact of Income. BertelsmannStiftung. https://www.bertelsmann-stiftung.de/fileadmin/files/BSt/Publikationen/GrauePublikationen/Impulse___2015-05_income_inequality_and_growth.pdf
+
+WorldAtlas. (2025). Regions of Europe. https://www.worldatlas.com/geography/regions-of-europe-2025.html
