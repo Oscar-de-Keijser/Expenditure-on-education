@@ -295,16 +295,15 @@ year_avg_exp_eu %>%
     vjust = -0.5,
 )
 ```
-The average tertiary education expenditure in Europe (see 3.2) goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the peak year of Covid-19. After 2020 the spending recovers only to fall down significantly in 2023.
+The average tertiary education expenditure in Europe (see 3.2) goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the time of the Covid-19 pandemic. After 2020 the spending recovers only to fall down significantly in 2023.
 
 
 # Part 4 - Discussion
 
 ## 4.1 Discuss your findings
 
-Our analysis shows that there is a negative relationship between government expenditure on tertiary education and income inequality (see 3.5). We found that the Gini coefficient has declined over the years meaning that income inequality has decreased (see 3.3). However, we found that the tertiary education expenditure, as a percentage of total government spending, has also declined (see 3.6). 
-
-This is in contradiction with the negative relationship we found. In our spatial analysis graph, we see a high level of tertiary education spending in Scandinavia (see 3.4). In these Scandinavian countries there is a low level of income inequality. Further research could examine why this negative relationship is present in Scandinavia. 
+Our analysis shows that there is a negative relationship between government expenditure on tertiary education and income inequality (see 3.5). We found that the Gini coefficient has declined over the years meaning that income inequality has decreased (see 3.3). However, we found that the tertiary education expenditure, as a percentage of total government spending, has also declined (see 3.6). This is in contradiction with the negative relationship we found. In our event analysis we observed a sharp decline in government spending at 2020. This decline is likely the consequence of a shortage of funding caused by the Covid-19 pandemic (Al-Samarrai et al., 2020). However we can not state this relationship with absolute certainty.
+Our spatial analysis graph shows a high level of tertiary education spending in Scandinavia (see 3.4). In these Scandinavian countries there is a low level of income inequality (see dataset: income_ineq). Further research could examine why this negative relationship is present in Scandinavia. 
 
 All data used in this research is obtained from Eurostat. Even though relying on only one data source ensures consistency, it may limit the reliability of the findings. Furthermore, this analysis only considers the proportion of total government spending spent on education and does not account for differences in absolute expenditure between countries. In addition, income inequality is influenced by many factors. This research focusses exclusively on the possible effect of educational spending and does not consider any other factors. Therefore, the results of this research can be seen as indicating an association, rather than a causal relationship. Future research could include additional determinants of income inequality and examine changes in absolute spending.
 
@@ -317,6 +316,8 @@ https://github.com/Oscar-de-Keijser/Expenditure-on-education
 
 
 ## 5.2 Reference list
+
+Al-Samarrai, S., Gangwar, M., & Gala, P. (2020). The impact of the COVID-19 pandemic on education financing. In Economic impact of COVID-19. World Bank. https://hdl.handle.net/10986/33739
 
 Cingano, F. (2014). Trends in Income Inequality. OECD. https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/12/trends-in-income-inequality-and-its-impact-on-economic-growth_g17a2582/5jxrjncwxv6j-en.pdf 
 
