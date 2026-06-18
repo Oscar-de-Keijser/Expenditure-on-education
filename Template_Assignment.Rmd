@@ -64,7 +64,7 @@ tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
 
 ## 2.2 Provide a short summary of the dataset(s)
 
-These are things that are usually included in the metadata of the dataset. For your project, you need to provide us with the information from your metadata that we need to understand your dataset of choice.
+*These are things that are usually included in the metadata of the dataset. For your project, you need to provide us with the information from your metadata that we need to understand your dataset of choice.*
 
 
 Dataset: Gini coefficient of equivalised disposable income
@@ -109,7 +109,7 @@ Number of cells:
 
 ## 2.3 Describe the type of variables included
 
-Think of things like: Do the variables contain health information or SES information?
+*Think of things like: Do the variables contain health information or SES information?*
 
 The veriables we have used for our project, from the raw data sets, contain: years, Gini coefficients and government spending in euro's (total and on tertiary education). We ourselves have made variables that are percentages and averages (see 3.2).
 
