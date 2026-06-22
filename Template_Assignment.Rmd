@@ -58,41 +58,45 @@ We downloaded three datasets as a csv.file from Eurostat (2026): 'Total Governme
 
 Dataset: Gini coefficient of equivalised disposable income
 
-Source of data:
+~Source of data:
     Eurostat
-Statistical theme:
+~Statistical theme:
     Tables on EU policy ; Population and social conditions
-Last data update:
+~Last data update:
     08/06/2026 23:00
-Data coverage:
+~Data coverage:
     2014 - 2025
-Number of cells:
+~Number of cells:
     435
+
+
 
 Dataset: Public educational expenditure by education level, programme orientation, type of source and expenditure category
 
-Source of data:
+~Source of data:
     Eurostat
-Statistical theme:
+~Statistical theme:
     Population and social conditions
-Last data update:
+~Last data update:
     08/05/2026 23:00 
-Data coverage:
+~Data coverage:
     2012 - 2023
-Number of cells:
+~Number of cells:
     634 963
+    
+    
     
 Dataset: General government expenditure by function (COFOG)
 
-Source of data:
+~Source of data:
     Eurostat
-Statistical theme:
+~Statistical theme:
     Economy and finance
-Last data update:
+~Last data update:
     27/04/2026 11:00 
-Data coverage:
+~Data coverage:
     1990 - 2025
-Number of cells:
+~Number of cells:
     21 424 873
     
 
@@ -245,7 +249,7 @@ ggplot(map_eu) +
   )
 ```
 
-When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries can be seen. Northern and Western Europe spend relatively more on tertiary education than Southern and Eastern Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
+When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries can be seen. North and West Europe spend relatively more on tertiary education than South and East Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
 
 ## 3.5 Visualizing sub-population variation
 
@@ -280,7 +284,7 @@ ggplot(gini_edu_data,
     linewidth = 0.8) + theme_minimal()
 ```
 
-Across all datapoints on the scatterplot, a trend line can be drawn that shows a negative correlation between the average tertiary education expenditure and average income inequality (see 3.2). Northern Europe has a large spread in both inequality and spending, with spending being on the higher end of the total distribution. Western Europe has similar inequality but large spread in spending. Southern Europe has moderate spread in both inequality and spending. Eastern Europe has similar spending but high spread in inequality.
+Across all datapoints on the scatterplot, a trend line can be drawn that shows a negative correlation between the average tertiary education expenditure and average income inequality (see 3.2). North Europe has a large spread in both inequality and spending, with spending being on the higher end of the total distribution. West Europe has similar inequality but large spread in spending. South Europe has moderate spread in both inequality and spending. East Europe has similar spending but high spread in inequality.
 
 
 ## 3.6  Visualizing event analysis
