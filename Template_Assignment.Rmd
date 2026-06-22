@@ -100,13 +100,13 @@ Number of cells:
 
 The variables we have used for our project, from the raw data sets, contain: years, Gini coefficients and government spending in euro's (total and on tertiary education). We ourselves have made variables that are percentages and averages (see 3.2) (Eurostat, 2026).
 
-The data from Eurostat came from administrative sources as well as questioneers and surveys (Eurostat, 2026).  
+The data from Eurostat came from administrative sources as well as questionnaires and surveys (Eurostat, 2026).  
 
 # Part 3 - Quantifying
 
 ## 3.1 Data cleaning
 
-We renamed some variables in the rows of every dataset to make programming with them easier, and for clarity. "OBS_VALUE" was initially found in multiple datasets but had different meanings, and would otherwise cause confusion. We removed rows containing averages of multiple European countries across multiple years, which we did not need. We also removed Kosovo because this country only had data of one year. 
+We renamed some variables in the rows of every dataset to make programming with them easier, and for clarity. "OBS_VALUE" was initially found in multiple datasets but had different meanings, and would otherwise cause confusion. We removed rows containing averages of multiple European countries across multiple years, which we did not need. We also removed Kosovo because this country only had one year of data. 
 
 ```{r data_cleaning, include=FALSE}
 #inladen tidyverse
@@ -147,9 +147,9 @@ tot_gov <- tot_gov[-(81:110), ]
 
 ## 3.2 Generating the necessary variables used
 
-For our analysis we created several new variables to facilitate a better understanding of how expenditure on tertiary education affects the income inequality in Europe. First, we merged the tertiary education expenditure dataset with the total government expenditure dataset. Based on this merged dataset we created a new variable by dividing the tertiary education expenditure with the total government expenditure. This variable gives a more accurate presentation of the tertiary education expenses by a country. 
+For our analysis we created several new variables to facilitate a better understanding of how expenditure on tertiary education affects the income inequality in Europe. First, we merged the tertiary education expenditure dataset with the total government expenditure dataset. Based on this merged dataset we created a new variable by dividing the tertiary education expenditure with the total government expenditure. This variable gives a more accurate representation of the tertiary education expenses by a country. 
 
-For our second variable we created the average Gini coefficient by taking the mean of the Gini coefficients over the years for each country (2014-2023). We did the same for the tertiary education variable for each country.
+For our second variable we created the average Gini coefficient by taking the mean of the Gini coefficients over the years for each country (2014-2023). The same was done for the tertiary education variable for each country.
 
 For our third variable we divided the countries within the datasets of tertiary education and general income inequality into four regions: 'North Europe', 'West Europe', 'South Europe' and 'East Europe' (WorldAtlas, 2025). 
 
@@ -245,7 +245,7 @@ ggplot(map_eu) +
   )
 ```
 
-When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries can be seen. North and West Europe spend relatively more on tertiary education than South and East Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
+When looking at the spatial map of the tertiary education expenditure (see 3.2) a clear division between the spending of different countries can be seen. Northern and Western Europe spend relatively more on tertiary education than Southern and Eastern Europe. Denmark and Norway spend the most tertiary education, while Italy and Greece spend the least. The United Kingdom and Russia were not included in the dataset.
 
 ## 3.5 Visualizing sub-population variation
 
@@ -280,7 +280,7 @@ ggplot(gini_edu_data,
     linewidth = 0.8) + theme_minimal()
 ```
 
-Across all datapoints on the scatterplot, a trend line can be drawn that shows a negative correlation between the average tertiary education expenditure and average income inequality (see 3.2). Northern Europe has a high spread in both inequality and spendings, with spendings being on the higher end of the total distribution. Western Europe has similar inequality but high spread in spendings. Southern Europe has moderate spread in both inequality and spendings. Eastern Europe has similar spendings but high spread in inequality.
+Across all datapoints on the scatterplot, a trend line can be drawn that shows a negative correlation between the average tertiary education expenditure and average income inequality (see 3.2). Northern Europe has a large spread in both inequality and spending, with spending being on the higher end of the total distribution. Western Europe has similar inequality but large spread in spending. Southern Europe has moderate spread in both inequality and spending. Eastern Europe has similar spending but high spread in inequality.
 
 
 ## 3.6  Visualizing event analysis
@@ -318,7 +318,7 @@ year_avg_exp_eu %>%
     vjust = -0.5,
 )
 ```
-The average tertiary education expenditure in Europe (see 3.2) goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, witch coincides with the time of the Covid-19 pandemic. After 2020 the spending recovers only to fall down significantly in 2023.
+The average tertiary education expenditure in Europe (see 3.2) goes down over a period of nine years (2014-2019). We see a sharp decline in 2020, which coincides with the time of the Covid-19 pandemic. After 2020 the spending recovers only to fall significantly in 2023.
 
 
 # Part 4 - Discussion
