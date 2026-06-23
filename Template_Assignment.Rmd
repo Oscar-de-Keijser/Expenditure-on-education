@@ -1,11 +1,14 @@
 ---
 title: "The quantitative relationship between government expenditure on tertiary education and income inequality"
-author: "Koen Stokvis – 2859043 
-Oscar de Keijser – 2862760 
-Zoe Cheung – 2802886 
-Khumo Nasipkulov – 2908830 
-Majd al-Jawald – 2806525 
-Julia Smit – 2897717 "
+author:
+  - "Koen Stokvis – 2859043"
+  - "Oscar de Keijser – 2862760"
+  - "Zoe Cheung – 2802886"
+  - "Khumo Nasipkulov – 2908830"
+  - "Majd al-Jawald – 2806525"
+  - "Julia Smit – 2897717"
+  
+  - "Chantal Schouwenaar Tutorial 1 Group 2"
 date: "`r Sys.Date()`"
 output:
   pdf_document: default
@@ -28,10 +31,6 @@ library(readr)
 library(tidyverse)
 ```
 
-Tutorial 1 Group 2
-
-Chantal Schouwenaar
-
 # Part 1 - Identify a Social Problem
 
 ## 1.1 Summary of the Social Problem
@@ -52,7 +51,7 @@ total_govt_exp <- read_csv("data/total_govt_exp.csv")
 general_income_ineq_gini_ <- read_csv("data/general_income_ineq_(gini).csv")
 tertiary_edu_govt_exp <- read_csv("data/tertiary_edu_govt_exp.csv")
 ```
-We downloaded three datasets as a csv.file from Eurostat (2026): 'Total Government Expenditure', General Income Inequality' and Tertiary Education Expenditure'.
+We downloaded three datasets as a csv.file from Eurostat (2026): 'Total Government Expenditure', 'General Income Inequality' and 'Tertiary Education Expenditure'.
 
 ## 2.2 A short summary of the datasets
 
@@ -110,7 +109,7 @@ The data from Eurostat came from administrative sources as well as questionnaire
 
 ## 3.1 Data cleaning
 
-We renamed some variables in the rows of every dataset to make programming with them easier, and for clarity. "OBS_VALUE" was initially found in multiple datasets but had different meanings, and would otherwise cause confusion. We removed rows containing averages of multiple European countries across multiple years, which we did not need. We also removed Kosovo because this country only had one year of data. 
+We started the data cleaning process by selecting the variables needed for our research. These variables included years, observation values and countries. Next, We renamed some variables in the columns of every dataset to make programming with them easier, and for clarity. "OBS_VALUE" was initially found in multiple datasets but had different meanings, so we renamed it to something that better reflected the value represented in each dataset. For example in the tertiary education dataset "OBS_VALUE" was turned into "edu_exp". We also removed rows containing averages of multiple European countries across multiple years, which we did not need. Finally, we removed Kosovo because this country only had one year of data. 
 
 ```{r data_cleaning, include=FALSE}
 #inladen tidyverse
@@ -153,7 +152,7 @@ tot_gov <- tot_gov[-(81:110), ]
 
 For our analysis we created several new variables to facilitate a better understanding of how expenditure on tertiary education affects the income inequality in Europe. First, we merged the tertiary education expenditure dataset with the total government expenditure dataset. Based on this merged dataset we created a new variable by dividing the tertiary education expenditure with the total government expenditure. This variable gives a more accurate representation of the tertiary education expenses by a country. 
 
-For our second variable we created the average Gini coefficient by taking the mean of the Gini coefficients over the years for each country (2014-2023). The same was done for the tertiary education variable for each country.
+For our second variable we created the average Gini coefficient for each country by taking the mean of the Gini coefficients over the years (2014-2023). The same was done for the tertiary education variable for each country.
 
 For our third variable we divided the countries within the datasets of tertiary education and general income inequality into four regions: 'North Europe', 'West Europe', 'South Europe' and 'East Europe' (WorldAtlas, 2025). 
 
@@ -228,7 +227,7 @@ gini_avg_pyear_eu %>%
    theme_minimal() 
 # Kosovo weggehaald voor de shock, er was maar één meting van 2018
 ```
-The average income inequality in Europe (see 3.2) is declining over a time period of nine years (2014-2019). With a significant decline from 2017 to 2020, falling back to a stable lower level from 2020 onward.
+The average income inequality in Europe (see 3.2) is declining over a time period of nine years (2014-2019). With a significant decline from 2017 to 2020, falling back to a stable lower level from 2020 onward. It is important to note that the fluctations across time are relatively small in magnitude, amounting to only a 1% change.
 
 ## 3.4 Visualizing spatial variation
 
